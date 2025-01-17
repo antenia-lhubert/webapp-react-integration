@@ -18,6 +18,12 @@ The then compiled react app will be reloaded as usual, as assets in the webapp.
 > (e.g. in IntelliJ, go in `Settings > Build, Execution, Deployment > Build Tools > Maven > Runners` and check
 `Delegate IDE build/run actions to Maven`)
 
+## Demo
+
+[Demo Video here](./.git-assets/demo.mp4)
+
+![](./.git-assets/demo.mp4)
+
 ## Steps to reproduce
 
 1. Generate a maven project with webapp archetype
