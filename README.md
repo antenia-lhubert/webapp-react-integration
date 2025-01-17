@@ -162,21 +162,35 @@ The then compiled react app will be reloaded as usual, as assets in the webapp.
      <artifactId>exec-maven-plugin</artifactId>
      <executions>
        <execution>
+         <id>npm-install</id>
+         <phase>generate-resources</phase>
+         <goals>
+           <goal>exec</goal>
+         </goals>
+         <configuration>
+           <workingDirectory>${project.basedir}/novanet-react</workingDirectory>
+           <executable>npm</executable>
+           <arguments>
+             <argument>install</argument>
+           </arguments>
+         </configuration>
+       </execution>
+       <execution>
          <id>react-build</id>
          <phase>generate-resources</phase>
          <goals>
            <goal>exec</goal>
          </goals>
+         <configuration>
+           <workingDirectory>${project.basedir}/novanet-react</workingDirectory>
+           <executable>npm</executable>
+           <arguments>
+             <argument>run</argument>
+             <argument>build</argument>
+           </arguments>
+         </configuration>
        </execution>
      </executions>
-     <configuration>
-       <workingDirectory>${project.basedir}/novanet-react</workingDirectory>
-       <executable>npm</executable>
-       <arguments>
-         <argument>run</argument>
-         <argument>build</argument>
-       </arguments>
-     </configuration>
    </plugin>
    ```
 10. Try and compile with the `mvn compile` goal (the compiled React project should be present in `novanet/react`)
