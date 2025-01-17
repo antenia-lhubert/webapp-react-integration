@@ -1,0 +1,33 @@
+{
+  "name": "novanet-react",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "watch": "chokidar --verbose --initial \"src/**/*\" \"public/**/*\" -c \"npm run build\"",
+    "build": "npm run lint && tsc -b && vite build",
+    "lint": "eslint .",
+    "preview": "vite preview",
+    "clean": "rimraf ../novanet/react"
+  },
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.17.0",
+    "@types/react": "^18.3.18",
+    "@types/react-dom": "^18.3.5",
+    "@vitejs/plugin-react-swc": "^3.5.0",
+    "chokidar-cli": "^3.0.0",
+    "eslint": "^9.17.0",
+    "eslint-plugin-react-hooks": "^5.0.0",
+    "eslint-plugin-react-refresh": "^0.4.16",
+    "globals": "^15.14.0",
+    "rimraf": "^6.0.1",
+    "typescript": "~5.6.2",
+    "typescript-eslint": "^8.18.2",
+    "vite": "^6.0.5"
+  }
+}

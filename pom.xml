@@ -1,0 +1,131 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>com.leaderinfo.novanet</groupId>
+  <artifactId>webapp-novanet</artifactId>
+  <packaging>war</packaging>
+  <version>1.0-SNAPSHOT</version>
+  <name>novanet</name>
+
+  <properties>
+    <version.compiler>1.8</version.compiler>
+    <version.javaee>8.0.1</version.javaee>
+  </properties>
+
+  <build>
+    <sourceDirectory>src</sourceDirectory>
+
+    <resources>
+      <resource>
+        <directory>src</directory>
+        <includes>
+          <include>**/*.hbm.xml</include>
+          <include>**/*.xml</include>
+          <include>**/*.xsd</include>
+          <include>**/*.properties</include>
+          <include>*.properties</include>
+        </includes>
+      </resource>
+    </resources>
+
+    <finalName>novanet</finalName>
+
+    <plugins>
+      <!-- Compilation des JSP -->
+      <plugin>
+        <groupId>org.eclipse.jetty</groupId>
+        <artifactId>jetty-jspc-maven-plugin</artifactId>
+        <version>9.3.30.v20211001</version>
+        <executions>
+          <execution>
+            <id>jspc</id>
+            <goals>
+              <goal>jspc</goal>
+            </goals>
+            <configuration>
+              <sourceVersion>${version.compiler}</sourceVersion>
+              <targetVersion>${version.compiler}</targetVersion>
+              <encoding>Cp1252</encoding>
+
+              <webAppSourceDirectory>${project.basedir}/novanet/</webAppSourceDirectory>
+              <webXml>${project.basedir}/novanet/WEB-INF/web.xml</webXml>
+              <generatedClasses>${project.basedir}/target/classesJsp</generatedClasses>
+              <includes>**/*.jsp</includes>
+              <excludes>
+                tags/**,**/Editeur.jsp,**/popup2Hab.jsp,**/popup2.jsp,**/repriseCourrier.jsp
+              </excludes>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+
+      <!-- Compilation des JAVA -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.8.0</version>
+        <configuration>
+          <source>${version.compiler}</source>
+          <target>${version.compiler}</target>
+          <encoding>Cp1252</encoding>
+          <meminitial>1024m</meminitial>
+          <maxmem>1536m</maxmem>
+        </configuration>
+      </plugin>
+
+      <!-- Création du WAR -->
+      <plugin>
+        <artifactId>maven-war-plugin</artifactId>
+        <version>3.2.2</version>
+        <configuration>
+          <warSourceDirectory>novanet</warSourceDirectory>
+          <warName>novanet</warName>
+          <failOnMissingWebXml>false</failOnMissingWebXml>
+        </configuration>
+      </plugin>
+
+      <!-- Compilation du front React -->
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>exec-maven-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>react-build</id>
+            <phase>generate-resources</phase>
+            <goals>
+              <goal>exec</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <workingDirectory>${project.basedir}/novanet-react</workingDirectory>
+          <executable>npm</executable>
+          <arguments>
+            <argument>run</argument>
+            <argument>build</argument>
+          </arguments>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+
+  <dependencies>
+    <dependency>
+      <groupId>javax.servlet</groupId>
+      <artifactId>javax.servlet-api</artifactId>
+      <version>3.0.1</version>
+    </dependency>
+    <dependency>
+      <groupId>javax.servlet</groupId>
+      <artifactId>jstl</artifactId>
+      <version>1.2</version>
+    </dependency>
+    <dependency>
+      <groupId>org.codehaus.mojo</groupId>
+      <artifactId>exec-maven-plugin</artifactId>
+      <version>3.5.0</version>
+    </dependency>
+  </dependencies>
+</project>
